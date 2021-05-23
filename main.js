@@ -44,9 +44,10 @@ function deSpawnPlayer() {
     enemies.forEach(enemy => {
         if (collision(player, enemy)) {
                 cancelAnimationFrame(animationId);
-                setTimeout(() => {
-                    location.reload();
-                }, 3000);
+
+                alert('you lost!');
+                alert = [];
+                location.reload();
         }
     }); 
 }
