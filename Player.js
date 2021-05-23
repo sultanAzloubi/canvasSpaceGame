@@ -1,3 +1,6 @@
+const spaceShip = new Image();
+spaceShip.src = './ship.png';
+
 class Player {
     constructor(x, y, width, height, color) {
         this.x = x;
@@ -21,6 +24,7 @@ class Player {
 
         context.beginPath();
         context.fillStyle = this.color;
-        context.fillRect(this.x, this.y, this.width, this.height); 
+        //context.fillRect(this.x, this.y, this.width, this.height);
+        context.drawImage(spaceShip, this.x, this.y, this.width, this.height);
     }
 }

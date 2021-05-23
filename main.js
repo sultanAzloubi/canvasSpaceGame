@@ -15,7 +15,7 @@ function drawGameInfo() {
 
 // Game local variables setup
 let score = 0;
-const player = new Player(canvas.width / 2, canvas.height - 100, 75, 75, 'blue');
+const player = new Player(canvas.width / 2, canvas.height - 125, 100, 100, 'blue');
 const projectiles = [];
 const defensiveBlocks = [];
 const enemies = [];
@@ -54,7 +54,7 @@ function deSpawnPlayer() {
 // Projectiles setup
 document.addEventListener('keydown', e => {
     if(e.keyCode === 13 || e.keyCode === 32) {
-        projectiles.push(new Projectile( (player.x + player.width / 2) - 4, (player.y - 30) , 8, 30, 'red'));
+        projectiles.push(new Projectile( (player.x + player.width / 2) - 2, (player.y - 30) , 4, 30, 'red'));
     }
 });
 
@@ -79,47 +79,30 @@ function deSpawnProjectiles() {
 
 // Defensive blocks setup
 function spawnBlocks() {
-    let x = Math.round(Math.random() * ((canvas.width - 120) - (0 + 60)) + (0 + 60) );
-    let y = Math.round(Math.random() * (375 - 300) + 300);
-    const firstBlock = new Barrier(x, y, 150, 50, 'white');
-    defensiveBlocks.push(firstBlock);
+    let xFix = Math.round(Math.random() * ((canvas.width - 120) - (0 + 60)) + (0 + 60) );
+    let yFix = Math.round(Math.random() * (375 - 275) + 275);
+    defensiveBlocks.push(new Barrier(xFix, yFix, 150, 50, 'white'));
 
-    const tmp = null;
-    for (let i = 0; i < 1; i++) {
-        x = Math.round(Math.random() * ((canvas.width - 120) - (0 + 60)) + (0 + 60) );
-        y = Math.round(Math.random() * (375 - 300) + 300);
-        let tmp = new Barrier(x, y, 150, 50, 'white');
-
-        if(!collision(firstBlock, tmp)) {
-            if(firstBlock.x < tmp.x + tmp.width &&
-               firstBlock.x + firstBlock.width > tmp.x) {
-                tmp = null;
-                i = -1;
-                continue
-            }
-
-            defensiveBlocks.push(tmp);
-        }
-        else {
-            tmp = null;
-            i = -1;
-            continue
-        }
-    }
+    let x = xFix < 500 ? Math.round(Math.random() * ((canvas.width - 120) - 700) + 700 ) 
+                       : Math.round(Math.random() * (380 - 120) +  120); 
+    let y = Math.round(Math.random() * (375 - 275) + 275);
+    defensiveBlocks.push(new Barrier(x, y, 150, 50, 'white'));
 }
 
 // Enemies setup
 function spawnEnemies() {
     setInterval(() => {
         enemies.push(new Enemy());
-    }, 500);
+    }, 250);
 }
 
 function deSpawnEnemies() {
     enemies.forEach((enemy, index) => {
         defensiveBlocks.forEach(defensiveBlock => {
             if (collision(enemy, defensiveBlock)) {
-                enemies.splice(index, 1);
+                setTimeout(() => {
+                    enemies.splice(index, 1);
+                }, 0);
             }
         });
 
