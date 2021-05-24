@@ -11,9 +11,17 @@ function drawGameInfo() {
     context.font = "25px Georgia";
     context.fillStyle='red';
     context.fillText(`Score: ${score}`, 50, 50);
+
+    backgroundMusic.play();
+    backgroundMusic.volume = 0.025
 }
 
+//backgroundMusic.play();
+
 // Game local variables setup
+const backgroundMusic = new Audio();
+backgroundMusic.src = './background.mp3'
+
 let score = 0;
 const player = new Player(canvas.width / 2, canvas.height - 125, 100, 100, 'blue');
 const projectiles = [];

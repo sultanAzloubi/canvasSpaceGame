@@ -8,7 +8,8 @@ class Enemy {
         this.width = 50;
         this.height = 50;
         this.color = 'cyan';
-        this.velocity = Math.round(Math.random() * (7 - 2) + 2);
+        this.velocity = score < 20 ? Math.round(Math.random() * (5 - 2) + 2) 
+                                   : Math.round(Math.random() * (11 - 7) + 7);
     }
 
     draw() {
